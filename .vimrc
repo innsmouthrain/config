@@ -112,6 +112,7 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal softtabstop=2
     autocmd BufEnter *.py setlocal tabstop=4
     autocmd BufEnter *.md setlocal ft=markdown
+	autocmd BufNewFile, BufRead *.p8 set syntax=lua
 augroup END
 " }}}
 " Testing {{{
