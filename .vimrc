@@ -6,6 +6,7 @@ colorscheme turtles
 " set termguicolors
 " }}}
 " Misc {{{
+set mouse=a
 set backspace=indent,eol,start
 let g:vimwiki_list = [{'path': '~/.wiki/'}]
 set exrc
@@ -55,8 +56,6 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gV `[v`]
 " }}}
-
-"
 " Window shortcuts {{{
 let g:tmux_navigator_no_mappings = 1
 
@@ -72,9 +71,11 @@ let mapleader=","
 nnoremap <leader>m :silent make\|redraw!\|cw<CR>
 nnoremap <leader>h :A<CR>
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader>et :exec ":vsp /home/moth/notes/" . strftime('%m-%d-%y') . ".md"<CR>
+nnoremap <leader>et :exec ":vsp /home/moth/notes/" . strftime('%y-%m-%d') . ".md"<CR>
+nnoremap <leader>bt :Vex /home/moth/notes<CR>
 nnoremap <leader>ez :vsp ~/.bashrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>mp :vsp ~/dev/passion.txt<CR>
 nnoremap <leader>l :call ToggleNumber()<CR>
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>s :mksession<CR>
@@ -86,7 +87,6 @@ nnoremap <leader>r :TestFile<CR>
 nnoremap <leader>g :call RunGoFile()<CR>
 vnoremap <leader>y "+y
 " }}}
-
 " CtrlP {{{
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
@@ -126,7 +126,6 @@ set backupskip=/tmp/*,/private/tmp/*
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set writebackup
 " }}}
-"
 " misc quests {{{
 " plug-in to run stuff in horizwin async
 " https://www.braintreepayments.com/blog/vimux-simple-vim-and-tmux-integration/
