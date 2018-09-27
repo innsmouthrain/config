@@ -6,7 +6,6 @@ colorscheme turtles
 " set termguicolors
 " }}}
 " Misc {{{
-set mouse=a
 set backspace=indent,eol,start
 let g:vimwiki_list = [{'path': '~/.wiki/'}]
 set exrc
@@ -19,10 +18,11 @@ set path+=/home/moth/dev
 " Spaces & Tabs {{{
 set tabstop=4           " 4 space tab
 set expandtab           " use spaces for tabs
-set softtabstop=4       " 4 space tab
+set softtabstop=0       " 4 space tab
 set shiftwidth=4
 set modelines=1
-set noexpandtab
+set expandtab
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 filetype indent on
 filetype plugin on
 set autoindent
@@ -71,11 +71,17 @@ let mapleader=","
 nnoremap <leader>m :silent make\|redraw!\|cw<CR>
 nnoremap <leader>h :A<CR>
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader>et :exec ":vsp /home/moth/notes/" . strftime('%y-%m-%d') . ".md"<CR>
-nnoremap <leader>bt :Vex /home/moth/notes<CR>
+nnoremap <leader>td :TernDef<CR>
+nnoremap <leader>tc :TernDoc<CR>
+nnoremap <leader>tt :TernType<CR>
+nnoremap <leader>tr :TernRefs<CR>
+nnoremap <leader>tn :TernRename<CR>
+nnoremap <leader>et :exec ":vsp $HOME/notes/" . strftime('%y-%m-%d') . ".md"<CR>
+nnoremap <leader>bt :Vex $HOME/notes<CR>
 nnoremap <leader>ez :vsp ~/.bashrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>mp :vsp ~/dev/passion.txt<CR>
+nnoremap <leader>mi :vsp ~/dev/sandbox/initiation.md<CR>
 nnoremap <leader>l :call ToggleNumber()<CR>
 nnoremap <leader><space> :noh<CR>
 nnoremap <leader>s :mksession<CR>
@@ -87,11 +93,43 @@ nnoremap <leader>r :TestFile<CR>
 nnoremap <leader>g :call RunGoFile()<CR>
 vnoremap <leader>y "+y
 " }}}
+" JavaScript Plugins {{{{
+"
+"enable keyboard shortcuts
+let g:tern_map_keys=1
+"show argument hints
+let g:tern_show_argument_hints='on_hold'
+
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+let g:javascript_plugin_flow = 1
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
+
+" }}}}
 " CtrlP {{{
 let g:ctrlp_match_window = 'bottom,order:ttb'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
-let g:ctrlp_custom_ignore = '\vbuild/|dist/|venv/|target/|\.(o|swp|pyc|egg)$'
+" let g:ctrlp_custom_ignore = '\vbuild/|dist/|node_modules\|venv/|target/|\.(o|swp|pyc|egg)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](doc|tmp|node_modules)',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
 " }}}
 " Syntastic {{{
 let g:syntastic_python_flake8_args='--ignore=E501'
@@ -112,7 +150,7 @@ augroup configgroup
     autocmd BufEnter *.sh setlocal softtabstop=2
     autocmd BufEnter *.py setlocal tabstop=4
     autocmd BufEnter *.md setlocal ft=markdown
-	autocmd BufNewFile, BufRead *.p8 set syntax=lua
+    autocmd BufNewFile, BufRead *.p8 set syntax=lua
 augroup END
 " }}}
 " Testing {{{
@@ -129,6 +167,13 @@ set writebackup
 " misc quests {{{
 " plug-in to run stuff in horizwin async
 " https://www.braintreepayments.com/blog/vimux-simple-vim-and-tmux-integration/
+" vimcompletesme
+" vim-gutentags
+" universal ctags
+" youcompleteme
+" easytags
+" syntastic
+" tern
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0
